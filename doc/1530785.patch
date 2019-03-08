@@ -1,0 +1,23 @@
+From: Ivan Topolcic <topolcic.ivan@gmail.com>
+Date: 1551920098 -0500
+Subject: Changed deprecated waitForCondition calls with TestUtils.waitForCondition
+
+
+
+diff --git a/browser/components/customizableui/test/browser_913972_currentset_overflow.js b/browser/components/customizableui/test/browser_913972_currentset_overflow.js
+--- a/browser/components/customizableui/test/browser_913972_currentset_overflow.js
++++ b/browser/components/customizableui/test/browser_913972_currentset_overflow.js
+@@ -18,12 +18,12 @@ add_task(async function() {
+   let navbarTarget = CustomizableUI.getCustomizationTarget(navbar);
+   let oldChildCount = navbarTarget.childElementCount;
+   window.resizeTo(kForceOverflowWidthPx, window.outerHeight);
+-  await waitForCondition(() => navbar.hasAttribute("overflowing"));
++  await TestUtils.waitForCondition(() => navbar.hasAttribute("overflowing"));
+   ok(navbar.hasAttribute("overflowing"), "Should have an overflowing toolbar.");
+   ok(CustomizableUI.inDefaultState, "Should still be in default state when overflowing.");
+   ok(navbarTarget.childElementCount < oldChildCount, "Should have fewer children.");
+   window.resizeTo(originalWindowWidth, window.outerHeight);
+-  await waitForCondition(() => !navbar.hasAttribute("overflowing"));
++  await TestUtils.waitForCondition(() => !navbar.hasAttribute("overflowing"));
+   ok(!navbar.hasAttribute("overflowing"), "Should no longer have an overflowing toolbar.");
+   ok(CustomizableUI.inDefaultState, "Should still be in default state now we're no longer overflowing.");
